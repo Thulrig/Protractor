@@ -10,9 +10,52 @@
       integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="./css/style.css" />
     <title>SuperHero</title>
   </head>
   <body>
+    <div id="overlay">
+      <div class="row justify-content-md-center">
+        <h1 align="center" id="loginLabel"> Welcome. Please, LogIn </h1>
+      </div>
+
+      <div class="row justify-content-md-center">
+        <div class="col-8">
+      <form id = "loginForm">
+        <div class="row mb-3">
+          <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+          <div class="col-sm-10">
+            <input type="email" class="form-control" id="inputEmail">
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+          <div class="col-sm-10">
+            <input type="password" class="form-control" id="inputPassword">
+          </div>
+        </div>
+        </fieldset>
+        <div class="row mb-3">
+          <div class="col-sm-10 offset-sm-2">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="rememberLoginCheck">
+              <label class="form-check-label" for="rememberLoginCheck">
+                Remember Login
+              </label>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Sign in</button>
+      </form>
+
+      <div class="alert alert-danger hide" id="loginAlert" role="alert">
+        Email or Password is required!
+      </div>
+
+        </div>
+      </div>
+    </div>
+
     <div class="navbar">
       <style>
         .navbar {
@@ -27,16 +70,6 @@
         }
       </style>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <!-- Button trigger modal -->
-        <button
-          type="button"
-          class="btn btn-primary"
-          data-bs-toggle="modal"
-          data-bs-target="#exampleModal"
-        >
-          Launch demo modal
-        </button>
-
         <!-- Modal -->
         <div
           class="modal fade"
@@ -127,12 +160,13 @@
                 </ul>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Logout</a>
+                <a class="nav-link" onclick="logout()" href="#">Logout</a>
               </li>
             </ul>
-            <form class="d-flex">
+            <form class="d-flex" id="search">
               <input
                 class="form-control me-2"
+                id="searchField"
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
@@ -145,6 +179,7 @@
         </div>
       </nav>
     </div>
+
     <div class="container-fluid">
       <div class="row justify-content-md-center">
         <div class="col-9">
@@ -179,17 +214,21 @@
       </div>
       <div class="row justify-content-md-center">
         <div class="col-9">
-          <ul class="list-group">
-            <li class="list-group-item">An item</li>
-            <li class="list-group-item">A second item</li>
-            <li class="list-group-item">A third item</li>
-            <li class="list-group-item">A fourth item</li>
-            <li class="list-group-item">And a fifth one</li>
+          <ul id="heroList" class="list-group">
+            <li class="list-group-item">SuperHero 1</li>
+            <li class="list-group-item">SuperHero 2</li>
+            <li class="list-group-item">SuperHero 3</li>
+            <li class="list-group-item">SuperHero 4</li>
+            <li class="list-group-item">SuperHero 5</li>
           </ul>
 
           <hr />
 
-          <div class="input-group mb-3">
+          <div class="alert alert-danger hide" id="addHeroAlert" role="alert">
+            No data has been entered!
+          </div>
+
+          <form id="addHeroForm">
             <label for="heroInput">Add Hero name:</label>
             <div class="input-group mb-3">
               <input
@@ -199,89 +238,96 @@
                 placeholder="Hero's name"
               />
               <button
-                class="btn btn-outline-secondary"
-                type="button"
-                id="button-addon2"
+                class="btn btn-outline-secondary hide"
+                type="submit"
+                id="addHero"
               >
-                Button
+                Add hero
               </button>
             </div>
+          </form>
+
+          <div class="alert alert-info hide" role="alert" id="voteAlert">
+            Thanks for voting!
           </div>
-          <div class="form-check">
-            <div>
-              <center><h1>Vote for your hero</h1></center>
-            </div>
 
-            <div>
-              <input
-                class="form-check-input"
-                type="radio"
-                name="flexRadioDefault"
-                id="flexRadioDefault1"
-              />
-              <label class="form-check-label" for="flexRadioDefault1">
-                Default radio
-              </label>
-            </div>
+          <form id="voteForm">
+            <div class="form-check">
+              <div>
+                <center><h1>Vote for your hero</h1></center>
+              </div>
 
-            <div>
-              <input
-                class="form-check-input"
-                type="radio"
-                name="flexRadioDefault"
-                id="flexRadioDefault1"
-              />
-              <label class="form-check-label" for="flexRadioDefault1">
-                Default radio
-              </label>
-            </div>
+              <div>
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="heroVote1"
+                  id="heroVote1"
+                />
+                <label class="form-check-label" for="heroVote1">
+                  Default radio
+                </label>
+              </div>
 
-            <div>
-              <input
-                class="form-check-input"
-                type="radio"
-                name="flexRadioDefault"
-                id="flexRadioDefault1"
-              />
-              <label class="form-check-label" for="flexRadioDefault1">
-                Default radio
-              </label>
-            </div>
+              <div>
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="heroVote2"
+                  id="heroVote2"
+                />
+                <label class="form-check-label" for="heroVote2">
+                  Default radio
+                </label>
+              </div>
 
-            <div>
-              <input
-                class="form-check-input"
-                type="radio"
-                name="flexRadioDefault"
-                id="flexRadioDefault1"
-              />
-              <label class="form-check-label" for="flexRadioDefault1">
-                Default radio
-              </label>
-            </div>
+              <div>
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="heroVote3"
+                  id="heroVote3"
+                />
+                <label class="form-check-label" for="heroVote3">
+                  Default radio
+                </label>
+              </div>
 
-            <div>
-              <input
-                class="form-check-input"
-                type="radio"
-                name="flexRadioDefault"
-                id="flexRadioDefault1"
-              />
-              <label class="form-check-label" for="flexRadioDefault1">
-                Default radio
-              </label>
-            </div>
+              <div>
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="heroVote4"
+                  id="heroVote4"
+                />
+                <label class="form-check-label" for="heroVote4">
+                  Default radio
+                </label>
+              </div>
 
-            <div>
-              <button
-                class="btn btn-outline-secondary"
-                type="button"
-                id="button-addon2"
-              >
-                Button
-              </button>
+              <div>
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="heroVote5"
+                  id="heroVote5"
+                />
+                <label class="form-check-label" for="heroVote5  ">
+                  Default radio
+                </label>
+              </div>
+
+              <div>
+                <button
+                  class="btn btn-outline-secondary"
+                  type="submit"
+                  id="button-addon2"
+                >
+                  Vote
+                </button>
+              </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
@@ -297,24 +343,24 @@
           </thead>
           <tbody>
             <tr>
-              <td>Otto</td>
-              <td>@mdo</td>
+              <td id="movieName1">Otto</td>
+              <td id="movieVotes1">0</td>
             </tr>
             <tr>
-              <td>Thornton</td>
-              <td>@fat</td>
+              <td id="movieName2">Thornton</td>
+              <td id="movieVotes2">0</td>
             </tr>
             <tr>
-              <td>@twitter</td>
-              <td>@fat</td>
+              <td id="movieName3">@twitter</td>
+              <td id="movieVotes3">0</td>
             </tr>
             <tr>
-              <td>Thornton</td>
-              <td>@fat</td>
+              <td id="movieName4">Thornton</td>
+              <td id="movieVotes4">0</td>
             </tr>
             <tr>
-              <td>Thornton</td>
-              <td>@fat</td>
+              <td id="movieName5">Thornton</td>
+              <td id="movieVotes5">0</td>
             </tr>
           </tbody>
         </table>
@@ -325,6 +371,7 @@
       integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
       crossorigin="anonymous"
     ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="./js/script.js"></script>
   </body>
 </html>
