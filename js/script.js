@@ -90,6 +90,7 @@ $("#loginForm").submit(function (event) {
 })
 
 const logout = () => {
+  $("#addHeroButton").addClass("hide")
   $("#overlay").removeClass("hide")
   $("#loginAlert").addClass("hide")
   $("#inputEmail").val(email)
