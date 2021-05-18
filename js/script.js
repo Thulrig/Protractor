@@ -83,6 +83,7 @@ $("#loginForm").submit(function (event) {
       $("#inputPassword").val("")
     }
     $("#overlay").addClass("hide")
+    $("#addHeroButton").removeClass("hide")
   }
 
   event.preventDefault()
