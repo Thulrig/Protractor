@@ -23,6 +23,7 @@ $("#voteForm").submit(function (event) {
 
   $("#voteForm").addClass("hide")
   $("#voteAlert").removeClass("hide")
+  $("#voteWarningAlert").addClass("hide")
 
   if($("#heroVote1").is(":checked")) {
     movieVotes1 = parseInt(movieVotes1) + 1
@@ -42,6 +43,11 @@ $("#voteForm").submit(function (event) {
   else if($("#heroVote5").is(":checked")) {
     movieVotes5 = parseInt(movieVotes5) + 1
     $("#movieVotes5").text(movieVotes5)  
+  }
+  else {
+    $("#voteForm").removeClass("hide")
+    $("#voteAlert").addClass("hide")
+    $("#voteWarningAlert").removeClass("hide")
   }
 
   event.preventDefault();
